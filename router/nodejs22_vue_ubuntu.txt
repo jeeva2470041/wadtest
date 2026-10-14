@@ -1,0 +1,63 @@
+NODE.JS 22 SETUP FOR VUE.JS ON UBUNTU
+=====================================
+
+Use these commands in the Ubuntu terminal, not Windows Command Prompt.
+
+1. STEP 1
+---------------------------------
+nvm --version
+
+
+2. STEP 2
+--------------
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+Reload the terminal configuration:
+
+3.STEP 3
+
+source ~/.bashrc
+nvm --version
+nvm cache clear
+unset NVM_NODEJS_ORG_MIRROR
+
+Check NVM:
+nvm --version
+
+4. INSTALL AND USE NODE.JS 22
+-----------------------------
+nvm install 22
+nvm use 22
+nvm alias default 22
+
+Check Node.js and npm versions:
+
+node -v
+npm -v
+
+The Node.js version should start with v22.
+
+5. RUN YOUR VUE PROJECT
+-----------------------
+Go to your Vue project folder. Example:
+
+cd ~/vue-basics
+
+If your project folder has a different name, replace vue-basics with that folder's name.
+
+Install dependencies and start the development server:
+
+npm install
+npm run dev
+
+Open the local URL shown in the terminal, usually:
+http://localhost:5173/
+
+IMPORTANT NOTES
+---------------
+- Run these commands in Ubuntu.
+- NVM installation requires internet access.
+- If "nvm: command not found" still appears after installation, close and reopen the terminal, then try:
+  source ~/.bashrc
+  nvm --version
+- Node.js 22 may not resolve a "wrong version number" error if the actual cause is an HTTPS/TLS or proxy configuration issue.

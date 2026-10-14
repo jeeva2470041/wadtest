@@ -1,0 +1,67 @@
+===================================================================
+                     WINDOWS COMMANDS
+===================================================================
+
+# 1. Start MySQL Service (Administrator PowerShell or Services App):
+net start MySQL80
+
+# 2. Database & Table Setup (in MySQL Workbench or mysql CLI):
+CREATE DATABASE studentdb;
+USE studentdb;
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL
+);
+
+# 3. Compile the Servlet:
+javac -cp "C:\Users\priya\Downloads\apache-tomcat-9.0.122-windows-x64\apache-tomcat-9.0.122\lib\servlet-api.jar" WEB-INF\classes\StudentServlet.java
+
+# 4. Start Apache Tomcat:
+C:\Users\priya\Downloads\apache-tomcat-9.0.122-windows-x64\apache-tomcat-9.0.122\bin\startup.bat
+
+# 5. Open in Browser:
+http://localhost:8080/databaseservlet/
+http://localhost:8080/databaseservlet/register
+
+
+===================================================================
+                      UBUNTU COMMANDS
+===================================================================
+
+# 1. Start MySQL Service in Ubuntu:
+sudo systemctl start mysql
+
+# 2. Log into MySQL:
+sudo mysql -u root -p
+# (or just: sudo mysql)
+
+# 3. Inside mysql prompt, create database & table:
+CREATE DATABASE studentdb;
+USE studentdb;
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL
+);
+
+# 4. Set MySQL Root Password & Native Auth (Required for JDBC):
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password_here';
+FLUSH PRIVILEGES;
+EXIT;
+
+# 5. Verify Table from Ubuntu Terminal:
+mysql -u root -p -e "SHOW TABLES FROM studentdb;"
+
+# 6. Compile Servlet on Ubuntu:
+javac -cp "/path/to/tomcat/lib/servlet-api.jar" WEB-INF/classes/StudentServlet.java
+
+# 7. Ensure MySQL Driver is in Tomcat lib (or WEB-INF/lib):
+sudo cp mysql-connector-j-*.jar /path/to/tomcat/lib/
+
+# 8. Start Apache Tomcat on Ubuntu:
+./bin/startup.sh
+
+# 9. Open in Browser:
+http://localhost:8080/databaseservlet/
+http://localhost:8080/databaseservlet/register

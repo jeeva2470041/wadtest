@@ -1,0 +1,326 @@
+Vue.js Basics — Notes and Code Examples
+
+These notes cover beginner-friendly Vue 3 concepts using the <script setup> syntax.
+
+1. CREATE A VUE.JS PROJECT
+
+Run these commands in Ubuntu Terminal:
+
+npm create vue@latest
+
+Enter a project name, for example: vue-basics.
+For a beginner setup, select No for optional features unless you need them.
+
+Then run:
+
+cd vue-basics
+npm install
+npm run dev
+
+Open the local URL shown in the terminal, usually:
+http://localhost:5173/
+
+To open the project in VS Code:
+code .
+
+Open src/App.vue to practise the examples below.
+
+
+2. INTERPOLATION — DISPLAY DATA
+
+Use {{ }} to display JavaScript values in HTML.
+
+<script setup>
+const name = 'Jeeva'
+const department = 'CSE'
+</script>
+
+<template>
+  <h1>Hello, {{ name }}!</h1>
+  <p>Department: {{ department }}</p>
+</template>
+
+Output:
+Hello, Jeeva!
+Department: CSE
+
+
+3. ref() — MAKE DATA REACTIVE
+
+When a reactive value changes, Vue updates the displayed content automatically.
+
+<script setup>
+import { ref } from 'vue'
+
+const count = ref(0)
+
+function increase() {
+  count.value++
+}
+</script>
+
+<template>
+  <h2>Count: {{ count }}</h2>
+  <button @click="increase">Increase</button>
+</template>
+
+Key points:
+- ref(0) creates a reactive value starting at zero.
+- count.value++ increases the value in JavaScript.
+- In the template, use count rather than count.value.
+
+
+4. v-model — TWO-WAY DATA BINDING
+
+Use v-model to connect an input field to a variable.
+
+<script setup>
+import { ref } from 'vue'
+
+const name = ref('')
+</script>
+
+<template>
+  <input v-model="name" placeholder="Enter your name" />
+  <p>Hello, {{ name }}</p>
+</template>
+
+When you type in the input, the paragraph updates automatically.
+
+
+5. @click — HANDLE BUTTON CLICKS
+
+The @click directive runs a function when a button is clicked.
+
+<script setup>
+function sayHello() {
+  alert('Welcome to Vue.js!')
+}
+</script>
+
+<template>
+  <button @click="sayHello">Click Me</button>
+</template>
+
+Here, @click="sayHello" calls the function when the user clicks the button.
+
+
+6. v-if AND v-else — CONDITIONAL RENDERING
+
+Display elements depending on a condition.
+
+<script setup>
+import { ref } from 'vue'
+
+const isLoggedIn = ref(false)
+</script>
+
+<template>
+  <p v-if="isLoggedIn">Welcome back!</p>
+  <p v-else>Please log in.</p>
+
+  <button @click="isLoggedIn = !isLoggedIn">
+    Toggle Login
+  </button>
+</template>
+
+Key points:
+- v-if displays an element when the condition is true.
+- v-else displays the alternative.
+- ! reverses the Boolean value.
+
+
+7. v-for — DISPLAY A LIST
+
+Use v-for to repeat an element for every item in an array.
+
+<script setup>
+import { ref } from 'vue'
+
+const students = ref([
+  'Arun',
+  'Bala',
+  'Kumar'
+])
+</script>
+
+<template>
+  <h2>Student List</h2>
+
+  <ul>
+    <li v-for="student in students" :key="student">
+      {{ student }}
+    </li>
+  </ul>
+</template>
+
+Output:
+- Arun
+- Bala
+- Kumar
+
+The :key helps Vue identify each item when updating the list.
+
+
+8. :class AND :style — DYNAMIC STYLING
+
+The colon (:) is shorthand for v-bind. It binds an HTML attribute to a JavaScript value.
+
+<script setup>
+import { ref } from 'vue'
+
+const active = ref(false)
+</script>
+
+<template>
+  <p :class="{ highlight: active }">
+    Vue Dynamic Styling
+  </p>
+
+  <button @click="active = !active">
+    Toggle Style
+  </button>
+</template>
+
+<style>
+.highlight {
+  color: blue;
+  font-weight: bold;
+}
+</style>
+
+For inline styling:
+
+<p :style="{ color: 'red', fontSize: '20px' }">
+  Styled text
+</p>
+
+
+9. computed() — CALCULATE A VALUE AUTOMATICALLY
+
+Use computed() when a displayed value depends on other reactive values.
+
+<script setup>
+import { ref, computed } from 'vue'
+
+const price = ref(100)
+const quantity = ref(2)
+
+const total = computed(() => price.value * quantity.value)
+</script>
+
+<template>
+  <p>Price: {{ price }}</p>
+  <p>Quantity: {{ quantity }}</p>
+  <h3>Total: ₹{{ total }}</h3>
+
+  <button @click="quantity++">Add Quantity</button>
+</template>
+
+When the quantity changes, Vue recalculates the total.
+
+
+10. onMounted() — RUN CODE WHEN THE COMPONENT LOADS
+
+Useful for fetching student records from a Spring Boot backend.
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const students = ref([])
+
+onMounted(async () => {
+  const response = await fetch('http://localhost:8081/api/students')
+  students.value = await response.json()
+})
+</script>
+
+<template>
+  <h2>Students</h2>
+  <p v-for="student in students" :key="student.id">
+    {{ student.name }}
+  </p>
+</template>
+
+onMounted() runs after the component is mounted. The Spring Boot backend must be running, and its CORS configuration must allow requests from the Vue development server.
+
+
+11. QUICK REVISION
+
+- {{ value }} — display data
+- ref() — reactive data
+- @click — handle clicks
+- v-model — bind input and data
+- v-if / v-else — conditional display
+- v-for — repeat elements
+- :class / :style — dynamic styling
+- computed() — derived values
+- onMounted() — run code after mounting
+
+
+12. MINI PROJECT — STUDENT REGISTRATION
+
+Try creating a simple student form using the concepts above.
+
+<script setup>
+import { ref } from 'vue'
+
+const name = ref('')
+const department = ref('CSE')
+const students = ref([])
+
+function addStudent() {
+  if (!name.value.trim()) return
+
+  students.value.push({
+    id: Date.now(),
+    name: name.value.trim(),
+    department: department.value
+  })
+
+  name.value = ''
+}
+</script>
+
+<template>
+  <h2>Student Registration</h2>
+
+  <form @submit.prevent="addStudent">
+    <label>Student name</label>
+    <input v-model="name" placeholder="Enter student name" />
+
+    <label>Department</label>
+    <select v-model="department">
+      <option>CSE</option>
+      <option>IT</option>
+      <option>ECE</option>
+    </select>
+
+    <button type="submit">Add Student</button>
+  </form>
+
+  <h3>Registered Students</h3>
+  <p v-if="students.length === 0">No students added yet.</p>
+
+  <ul>
+    <li v-for="student in students" :key="student.id">
+      {{ student.name }} — {{ student.department }}
+    </li>
+  </ul>
+</template>
+
+This mini project demonstrates ref(), v-model, @submit.prevent, v-if, and v-for.
+
+
+RECOMMENDED LEARNING ORDER
+
+1. Interpolation
+2. ref()
+3. v-model
+4. @click
+5. v-if and v-else
+6. v-for
+7. :class and :style
+8. computed()
+9. onMounted()
+10. Components, props, defineEmits, and API integration with Spring Boot

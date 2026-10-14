@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Complete guide and interactive showcase of JavaScript basics to intermediate concepts in a single file">
+  <title>JavaScript Basics to Intermediate - Complete Interactive Guide</title>
+
+  <style>
+    :root {
+      --primary: #f59e0b; /* JS Gold */
+      --primary-dark: #d97706;
+      --secondary: #2563eb;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --code-bg: #090d16;
+      --terminal-bg: #020617;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border-bottom: 2px solid var(--primary);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.3rem;
+      color: #fbbf24;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    /* Sticky Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    nav a:hover {
+      color: #fbbf24;
+      background: #1e293b;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Cards */
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 26px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    section h2 {
+      color: #fbbf24;
+      font-size: 1.45rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: monospace;
+      font-weight: normal;
+    }
+
+    .desc {
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+    }
+
+    /* Code styling */
+    pre {
+      background: var(--code-bg);
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 6px;
+      border: 1px solid #1e293b;
+      overflow-x: auto;
+      font-family: "Consolas", monospace;
+      font-size: 0.88rem;
+      margin: 12px 0;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: "Consolas", monospace;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fde047;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    /* Interactive Box & Live Terminal */
+    .interactive-panel {
+      background: #141c2e;
+      border: 1px solid #2d3748;
+      border-radius: 8px;
+      padding: 18px;
+      margin: 16px 0;
+    }
+
+    .terminal-output {
+      background: var(--terminal-bg);
+      border: 1px solid #1e293b;
+      border-left: 3px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-family: "Consolas", monospace;
+      font-size: 0.88rem;
+      color: #38bdf8;
+      min-height: 48px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* Buttons */
+    button, .btn {
+      background: #f59e0b;
+      color: #0f172a;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 4px 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button:hover, .btn:hover {
+      background: #d97706;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    button.btn-blue {
+      background: #2563eb;
+      color: white;
+    }
+    button.btn-blue:hover {
+      background: #1d4ed8;
+    }
+
+    button.btn-red {
+      background: #ef4444;
+      color: white;
+    }
+    button.btn-red:hover {
+      background: #dc2626;
+    }
+
+    /* Inputs */
+    input, select, textarea {
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Validation indicator */
+    .error-msg {
+      color: #f87171;
+      font-size: 0.82rem;
+      display: none;
+    }
+
+    .success-msg {
+      color: #4ade80;
+      font-size: 0.82rem;
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--card-border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>JavaScript Complete Basics to Intermediate Guide</h1>
+    <p>Core JS syntax, data types, DOM manipulation, events, array methods, modern ES6+, async/await, and Web APIs in a single interactive file.</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav aria-label="Topics">
+    <a href="#variables">1. Variables</a>
+    <a href="#functions">2. Functions</a>
+    <a href="#arrays">3. Arrays</a>
+    <a href="#objects">4. Objects &amp; ES6</a>
+    <a href="#dom">5. DOM Manipulation</a>
+    <a href="#events">6. Events</a>
+    <a href="#validation">7. Form Validation</a>
+    <a href="#async">8. Async &amp; Promises</a>
+    <a href="#storage">9. Storage &amp; JSON</a>
+    <a href="#classes">10. Classes &amp; OOP</a>
+  </nav>
+
+  <main class="container">
+
+    <!-- 1. VARIABLES & DATA TYPES -->
+    <section id="variables">
+      <h2>
+        1. Variables &amp; Data Types
+        <span class="badge">let, const, var, primitives</span>
+      </h2>
+      <p class="desc">JavaScript has 3 variable keywords (<code>let</code>, <code>const</code>, <code>var</code>) and primitive vs reference types.</p>
+
+      <pre><code>// 1. Variable Declarations
+const appName = "StudentApp"; // Block-scoped, cannot be reassigned
+let score = 95;               // Block-scoped, can be reassigned
+var legacy = "old style";     // Function-scoped (hoisted, avoid in modern JS)
+
+// 2. Data Types
+let str = "Hello World";      // String
+let num = 42;                 // Number (integers & floats are both 'number')
+let bool = true;              // Boolean
+let unassigned;               // undefined (variable declared with no value)
+let empty = null;             // null (intentional absence of any object value)
+let sym = Symbol("id");       // Symbol (unique identifier)
+let big = 9007199254740991n;  // BigInt</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Live Type Checker (<code>typeof</code> operator)</h4>
+        <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <button type="button" onclick="checkType('Hello')">typeof "Hello"</button>
+          <button type="button" onclick="checkType(100)">typeof 100</button>
+          <button type="button" onclick="checkType(true)">typeof true</button>
+          <button type="button" onclick="checkType([1, 2, 3])">typeof [1,2,3]</button>
+          <button type="button" onclick="checkType({ id: 1 })">typeof { id: 1 }</button>
+          <button type="button" onclick="checkType(null)">typeof null</button>
+          <button type="button" onclick="checkType(undefined)">typeof undefined</button>
+        </div>
+        <div class="terminal-output" id="output-types">Click a button above to test typeof in real-time...</div>
+      </div>
+    </section>
+
+    <!-- 2. FUNCTIONS & ES6 ARROW FUNCTIONS -->
+    <section id="functions">
+      <h2>
+        2. Functions (Declarations, Expressions &amp; Arrow Functions)
+        <span class="badge">() =&gt; {}, closures, default params</span>
+      </h2>
+      <p class="desc">Functions are first-class citizens in JavaScript. They can be stored in variables and passed as arguments.</p>
+
+      <pre><code>// 1. Function Declaration (Hoisted)
+function add(a, b = 0) {
+  return a + b;
+}
+
+// 2. Function Expression
+const multiply = function(a, b) {
+  return a * b;
+};
+
+// 3. Arrow Function (ES6 - concise syntax, lexical 'this')
+const square = (n) => n * n;
+
+// 4. Closure Example (Inner function retains access to outer variables)
+function createCounter() {
+  let count = 0;
+  return () => ++count;
+}
+const counter = createCounter();</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Interactive Function Runner</h4>
+        <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center;">
+          <button type="button" onclick="runSquareDemo()">Run square(7)</button>
+          <button type="button" class="btn-blue" onclick="runCounterDemo()">Increment Closure Counter</button>
+        </div>
+        <div class="terminal-output" id="output-functions">Output will appear here...</div>
+      </div>
+    </section>
+
+    <!-- 3. ARRAYS & ARRAY METHODS -->
+    <section id="arrays">
+      <h2>
+        3. Arrays &amp; Functional Methods
+        <span class="badge">map, filter, reduce, forEach, find</span>
+      </h2>
+      <p class="desc">Modern JavaScript relies heavily on declarative, non-mutating array iteration methods.</p>
+
+      <pre><code>const students = [
+  { id: 1, name: "Priya", score: 92 },
+  { id: 2, name: "Arun",  score: 68 },
+  { id: 3, name: "Kiran", score: 85 },
+  { id: 4, name: "Divya", score: 55 }
+];
+
+// map(): Transform each element into a new array
+const names = students.map(s => s.name);
+
+// filter(): Filter elements based on condition
+const passed = students.filter(s => s.score >= 70);
+
+// reduce(): Accumulate values into a single result
+const totalScore = students.reduce((acc, curr) => acc + curr.score, 0);
+
+// find(): Returns the first matching element
+const topper = students.find(s => s.score > 90);</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Live Array Method Playground</h4>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <button type="button" onclick="runArrayMap()">Run .map() (Extract Names)</button>
+          <button type="button" onclick="runArrayFilter()">Run .filter() (Score &ge; 70)</button>
+          <button type="button" onclick="runArrayReduce()">Run .reduce() (Average Score)</button>
+          <button type="button" onclick="runArrayFind()">Run .find() (First Top Scorer)</button>
+        </div>
+        <div class="terminal-output" id="output-arrays">Select an array operation above...</div>
+      </div>
+    </section>
+
+    <!-- 4. OBJECTS & MODERN ES6+ FEATURES -->
+    <section id="objects">
+      <h2>
+        4. Objects, Destructuring, Spread &amp; Optional Chaining
+        <span class="badge">{...spread}, destructuring, ?.</span>
+      </h2>
+      <p class="desc">ES6+ introduced powerful syntax improvements for inspecting and manipulating objects.</p>
+
+      <pre><code>const student = {
+  id: 101,
+  name: "Priya",
+  course: "Web App Dev",
+  contact: { email: "priya@example.com" }
+};
+
+// 1. Destructuring with Default Values
+const { name, course, role = "Student" } = student;
+
+// 2. Spread Operator (...) for copying or merging
+const updatedStudent = { ...student, grade: "A+" };
+
+// 3. Optional Chaining (?.) and Nullish Coalescing (??)
+const phone = student.contact?.phone ?? "No phone provided";
+
+// 4. Template Literals (String interpolation)
+const summary = `${name} is enrolled in ${course}. Contact: ${phone}`;</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Live ES6 Feature Demo</h4>
+        <button type="button" onclick="runES6Demo()">Run ES6 Destructuring &amp; Spread Demo</button>
+        <div class="terminal-output" id="output-es6">Click button to execute ES6 object features...</div>
+      </div>
+    </section>
+
+    <!-- 5. DOM MANIPULATION -->
+    <section id="dom">
+      <h2>
+        5. DOM Manipulation (Document Object Model)
+        <span class="badge">querySelector, createElement, classList</span>
+      </h2>
+      <p class="desc">JavaScript dynamically alters page content, structure, and styles in real-time.</p>
+
+      <pre><code>// 1. Selecting Elements
+const element = document.getElementById("myId");
+const cards = document.querySelectorAll(".card"); // Returns NodeList
+
+// 2. Modifying Content & Attributes
+element.textContent = "New Plain Text";
+element.innerHTML = "&lt;strong&gt;HTML Content&lt;/strong&gt;";
+element.setAttribute("data-role", "admin");
+
+// 3. Modifying Classes (Recommended over inline styles)
+element.classList.add("active");
+element.classList.remove("hidden");
+element.classList.toggle("highlight");
+
+// 4. Creating & Appending Elements
+const newDiv = document.createElement("div");
+newDiv.textContent = "I was dynamically created!";
+document.body.appendChild(newDiv);</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Live DOM Manipulation Area</h4>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+          <button type="button" onclick="domChangeText()">1. Change Text</button>
+          <button type="button" class="btn-blue" onclick="domToggleHighlight()">2. Toggle Highlight Class</button>
+          <button type="button" onclick="domAddItem()">3. Add Dynamic List Item</button>
+          <button type="button" class="btn-red" onclick="domReset()">Reset</button>
+        </div>
+
+        <div id="domTargetBox" style="background: #0f172a; padding: 14px; border-radius: 6px; border: 1px dashed #475569;">
+          <p id="domTargetText">Original text inside DOM target element.</p>
+          <ul id="domDynamicList" style="margin-left: 20px; margin-top: 8px;">
+            <li>Default Initial Item</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. EVENT HANDLING -->
+    <section id="events">
+      <h2>
+        6. Event Handling &amp; Listeners
+        <span class="badge">addEventListener, click, input, keydown</span>
+      </h2>
+      <p class="desc">Events allow JavaScript to respond to user interactions (clicks, keyboard input, mouse motion).</p>
+
+      <pre><code>// Modern event listener syntax
+const btn = document.querySelector("#myBtn");
+
+btn.addEventListener("click", (event) => {
+  console.log("Button clicked!", event.target);
+  event.stopPropagation(); // Prevents bubbling
+});
+
+// Real-time input listening
+const input = document.querySelector("#search");
+input.addEventListener("input", (e) => {
+  console.log("Current value:", e.target.value);
+});</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Live Real-time Keypress &amp; Input Tracker</h4>
+        <input type="text" id="liveEventInput" placeholder="Type here to see real-time keyboard events..." style="margin-bottom: 10px;">
+        <div class="terminal-output" id="output-events">Waiting for user interaction...</div>
+      </div>
+    </section>
+
+    <!-- 7. FORM VALIDATION -->
+    <section id="validation">
+      <h2>
+        7. Client-side Form Validation
+        <span class="badge">Regex, event.preventDefault(), error handling</span>
+      </h2>
+      <p class="desc">A standard requirement in web exams: validating fields before submission.</p>
+
+      <div class="interactive-panel">
+        <form id="studentRegForm" onsubmit="validateStudentForm(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="valName">Student Name (Min 3 chars):</label>
+              <input type="text" id="valName" placeholder="Enter name">
+              <span class="error-msg" id="nameError">Name must be at least 3 characters.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="valEmail">Email Address (Valid email):</label>
+              <input type="email" id="valEmail" placeholder="student@example.com">
+              <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="valAge">Age (18 - 99):</label>
+              <input type="number" id="valAge" placeholder="18-99">
+              <span class="error-msg" id="ageError">Age must be between 18 and 99.</span>
+            </div>
+          </div>
+
+          <button type="submit">Submit &amp; Validate Form</button>
+          <span class="success-msg" id="formSuccess" style="margin-left: 12px; font-weight: bold;">
+            ✓ Form validated successfully!
+          </span>
+        </form>
+      </div>
+    </section>
+
+    <!-- 8. ASYNC JAVASCRIPT & PROMISES -->
+    <section id="async">
+      <h2>
+        8. Asynchronous JavaScript, Promises &amp; Fetch API
+        <span class="badge">async / await, Promises, fetch()</span>
+      </h2>
+      <p class="desc">Handle non-blocking tasks like fetching data from REST APIs (e.g. Spring Boot).</p>
+
+      <pre><code>// 1. Promise Definition
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+// 2. Async/Await with Try...Catch
+async function fetchStudentData() {
+  try {
+    const response = await fetch("http://localhost:8081/api/students");
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("Students loaded:", data);
+  } catch (error) {
+    console.error("Fetch failed:", error.message);
+  }
+}</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Async Simulation &amp; Fetch Demonstration</h4>
+        <button type="button" class="btn-blue" onclick="runAsyncSimulation()">Simulate Async API Request (1.5s delay)</button>
+        <button type="button" onclick="runPublicApiFetch()">Fetch Real JSON (JSONPlaceholder)</button>
+        <div class="terminal-output" id="output-async">Click a button to test async operations...</div>
+      </div>
+    </section>
+
+    <!-- 9. WEB STORAGE & JSON -->
+    <section id="storage">
+      <h2>
+        9. LocalStorage, SessionStorage &amp; JSON
+        <span class="badge">localStorage.setItem, JSON.stringify</span>
+      </h2>
+      <p class="desc">Save data across browser reloads without a backend database.</p>
+
+      <pre><code>// 1. Convert JavaScript Object to JSON String
+const profile = { username: "priya_wad", theme: "dark" };
+const jsonString = JSON.stringify(profile);
+
+// 2. Save to localStorage
+localStorage.setItem("userProfile", jsonString);
+
+// 3. Retrieve and Parse JSON
+const savedData = localStorage.getItem("userProfile");
+const user = JSON.parse(savedData); // Converts back to JS Object</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Interactive LocalStorage Manager</h4>
+        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+          <input type="text" id="storageInput" placeholder="Enter custom note or string to store..." style="max-width: 400px;">
+          <button type="button" onclick="saveToStorage()">Save to LocalStorage</button>
+          <button type="button" class="btn-red" onclick="clearStorage()">Clear</button>
+        </div>
+        <div class="terminal-output" id="output-storage">Checking localStorage...</div>
+      </div>
+    </section>
+
+    <!-- 10. CLASSES & OOP -->
+    <section id="classes">
+      <h2>
+        10. ES6 Classes &amp; Object-Oriented Programming (OOP)
+        <span class="badge">class, constructor, extends, super</span>
+      </h2>
+      <p class="desc">Modern syntactic sugar over prototypal inheritance.</p>
+
+      <pre><code>// Base Class
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  introduce() {
+    return `Hello, my name is ${this.name}.`;
+  }
+}
+
+// Subclass (Inheritance)
+class Student extends Person {
+  constructor(name, rollNo) {
+    super(name); // Calls parent constructor
+    this.rollNo = rollNo;
+  }
+  introduce() {
+    return `${super.introduce()} I am a student with Roll No: ${this.rollNo}.`;
+  }
+}</code></pre>
+
+      <div class="interactive-panel">
+        <h4>Test Class Inheritance</h4>
+        <button type="button" onclick="runClassDemo()">Instantiate Student Class</button>
+        <div class="terminal-output" id="output-classes">Click button to instantiate classes...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Web Application Development (WAD) &bull; JavaScript Complete Basics to Intermediate</p>
+    <p><small>&copy; 2026 Interactive JavaScript Guide</small></p>
+  </footer>
+
+  <!-- ============================================================
+       EMBEDDED INTERACTIVE JAVASCRIPT
+       ============================================================ -->
+  <script>
+    // 1. Check Type Demo
+    function checkType(val) {
+      const type = typeof val;
+      const isArr = Array.isArray(val);
+      const displayVal = typeof val === 'object' && val !== null ? JSON.stringify(val) : String(val);
+      document.getElementById('output-types').textContent = 
+        `Value: ${displayVal}\nType: ${type} ${isArr ? '(Specialized Array object)' : ''}`;
+    }
+
+    // 2. Functions Demo
+    let counterValue = 0;
+    function runSquareDemo() {
+      const square = n => n * n;
+      document.getElementById('output-functions').textContent = 
+        `const square = (n) => n * n;\nsquare(7) => Result: ${square(7)}`;
+    }
+
+    function runCounterDemo() {
+      counterValue++;
+      document.getElementById('output-functions').textContent = 
+        `Closure Counter called: ${counterValue} time(s).`;
+    }
+
+    // 3. Array Methods Demo
+    const sampleStudents = [
+      { id: 1, name: "Priya", score: 92 },
+      { id: 2, name: "Arun", score: 68 },
+      { id: 3, name: "Kiran", score: 85 },
+      { id: 4, name: "Divya", score: 55 }
+    ];
+
+    function runArrayMap() {
+      const names = sampleStudents.map(s => s.name);
+      document.getElementById('output-arrays').textContent = 
+        `Original: [${sampleStudents.map(s => s.name).join(', ')}]\n.map(s => s.name): [${names.join(', ')}]`;
+    }
+
+    function runArrayFilter() {
+      const passed = sampleStudents.filter(s => s.score >= 70);
+      document.getElementById('output-arrays').textContent = 
+        `Passed Students (Score >= 70):\n${JSON.stringify(passed, null, 2)}`;
+    }
+
+    function runArrayReduce() {
+      const total = sampleStudents.reduce((acc, curr) => acc + curr.score, 0);
+      const avg = (total / sampleStudents.length).toFixed(1);
+      document.getElementById('output-arrays').textContent = 
+        `Total Score: ${total}\nClass Average Score: ${avg}`;
+    }
+
+    function runArrayFind() {
+      const top = sampleStudents.find(s => s.score > 90);
+      document.getElementById('output-arrays').textContent = 
+        `First student with score > 90:\n${JSON.stringify(top, null, 2)}`;
+    }
+
+    // 4. ES6 Object Demo
+    function runES6Demo() {
+      const student = { id: 101, name: "Priya", course: "WAD" };
+      const updated = { ...student, grade: "A", verified: true };
+      const { name, course } = updated;
+
+      document.getElementById('output-es6').textContent = 
+        `Original: ${JSON.stringify(student)}\nSpread Merged: ${JSON.stringify(updated, null, 2)}\nDestructured variables: name = "${name}", course = "${course}"`;
+    }
+
+    // 5. DOM Manipulation Demo
+    function domChangeText() {
+      document.getElementById('domTargetText').textContent = 
+        `Updated at ${new Date().toLocaleTimeString()} by JavaScript!`;
+    }
+
+    function domToggleHighlight() {
+      const target = document.getElementById('domTargetBox');
+      target.style.background = target.style.background === 'rgb(30, 58, 138)' ? '#0f172a' : '#1e3a8a';
+      target.style.borderColor = target.style.borderColor === 'rgb(59, 130, 246)' ? '#475569' : '#3b82f6';
+    }
+
+    let itemCount = 1;
+    function domAddItem() {
+      itemCount++;
+      const li = document.createElement('li');
+      li.textContent = `Dynamic item #${itemCount} (Created with document.createElement)`;
+      li.style.color = '#38bdf8';
+      document.getElementById('domDynamicList').appendChild(li);
+    }
+
+    function domReset() {
+      document.getElementById('domTargetText').textContent = "Original text inside DOM target element.";
+      const target = document.getElementById('domTargetBox');
+      target.style.background = '#0f172a';
+      target.style.borderColor = '#475569';
+      document.getElementById('domDynamicList').innerHTML = '<li>Default Initial Item</li>';
+      itemCount = 1;
+    }
+
+    // 6. Event Handling Demo
+    const eventInput = document.getElementById('liveEventInput');
+    if (eventInput) {
+      eventInput.addEventListener('input', (e) => {
+        document.getElementById('output-events').textContent = 
+          `Input Event Triggered!\nValue: "${e.target.value}"\nCharacter count: ${e.target.value.length}`;
+      });
+      eventInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          alert(`You pressed Enter with value: ${e.target.value}`);
+        }
+      });
+    }
+
+    // 7. Form Validation Demo
+    function validateStudentForm(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('valName').value.trim();
+      const email = document.getElementById('valEmail').value.trim();
+      const age = parseInt(document.getElementById('valAge').value, 10);
+
+      let isValid = true;
+
+      // Validate Name
+      const nameErr = document.getElementById('nameError');
+      if (name.length < 3) {
+        nameErr.style.display = 'block';
+        isValid = false;
+      } else {
+        nameErr.style.display = 'none';
+      }
+
+      // Validate Email (Regex)
+      const emailErr = document.getElementById('emailError');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        emailErr.style.display = 'block';
+        isValid = false;
+      } else {
+        emailErr.style.display = 'none';
+      }
+
+      // Validate Age
+      const ageErr = document.getElementById('ageError');
+      if (isNaN(age) || age < 18 || age > 99) {
+        ageErr.style.display = 'block';
+        isValid = false;
+      } else {
+        ageErr.style.display = 'none';
+      }
+
+      const successMsg = document.getElementById('formSuccess');
+      if (isValid) {
+        successMsg.style.display = 'inline-block';
+        setTimeout(() => { successMsg.style.display = 'none'; }, 4000);
+      } else {
+        successMsg.style.display = 'none';
+      }
+    }
+
+    // 8. Async & Fetch Demo
+    async function runAsyncSimulation() {
+      const out = document.getElementById('output-async');
+      out.textContent = "Loading... Sending async request to backend simulation...";
+      
+      const simulateApi = () => new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ status: 200, message: "Response received successfully after 1500ms delay!" });
+        }, 1500);
+      });
+
+      try {
+        const result = await simulateApi();
+        out.textContent = `Status: ${result.status}\nMessage: ${result.message}`;
+      } catch (err) {
+        out.textContent = `Error: ${err.message}`;
+      }
+    }
+
+    async function runPublicApiFetch() {
+      const out = document.getElementById('output-async');
+      out.textContent = "Fetching 1 sample post from jsonplaceholder.typicode.com...";
+      try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+        const data = await res.json();
+        out.textContent = `Fetched Real JSON via fetch():\nTitle: ${data.title}\nBody: ${data.body}`;
+      } catch (err) {
+        out.textContent = `Fetch error: ${err.message}`;
+      }
+    }
+
+    // 9. Storage Demo
+    function displayStorage() {
+      const val = localStorage.getItem('wad_demo_note');
+      document.getElementById('output-storage').textContent = 
+        val ? `Stored in LocalStorage: "${val}"` : "LocalStorage is currently empty.";
+    }
+
+    function saveToStorage() {
+      const text = document.getElementById('storageInput').value.trim();
+      if (!text) return alert("Please type something to save!");
+      localStorage.setItem('wad_demo_note', text);
+      document.getElementById('storageInput').value = '';
+      displayStorage();
+    }
+
+    function clearStorage() {
+      localStorage.removeItem('wad_demo_note');
+      displayStorage();
+    }
+    displayStorage();
+
+    // 10. Classes Demo
+    class Person {
+      constructor(name) { this.name = name; }
+      introduce() { return `Hello, I am ${this.name}.`; }
+    }
+
+    class StudentClass extends Person {
+      constructor(name, rollNo, dept) {
+        super(name);
+        this.rollNo = rollNo;
+        this.dept = dept;
+      }
+      introduce() {
+        return `${super.introduce()} Roll No: ${this.rollNo}, Department: ${this.dept}.`;
+      }
+    }
+
+    function runClassDemo() {
+      const s = new StudentClass("Priya", "WAD-2026-042", "Computer Science");
+      document.getElementById('output-classes').textContent = 
+        `Instance created: s = new StudentClass("Priya", "WAD-2026-042", "Computer Science");\n\nMethod Call s.introduce():\n"${s.introduce()}"`;
+    }
+  </script>
+</body>
+</html>

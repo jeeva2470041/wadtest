@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Standalone live interactive guide to Vue 3 basics and Composition API">
+  <title>Vue 3 Basics - Interactive Live Guide</title>
+
+  <!-- Load Vue 3 via CDN for instant browser execution without build tools -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    :root {
+      --vue-green: #42b883;
+      --vue-dark: #35495e;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e293b, var(--vue-dark));
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+      border-bottom: 4px solid var(--vue-green);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: var(--vue-green);
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      color: var(--vue-dark);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      background: rgba(66, 184, 131, 0.15);
+      color: #15803d;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-family: monospace;
+      font-weight: 600;
+    }
+
+    .desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+    }
+
+    .demo-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    /* Buttons */
+    button {
+      background: var(--vue-green);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #33a06f;
+    }
+
+    button.btn-gray {
+      background: #64748b;
+    }
+    button.btn-gray:hover {
+      background: #475569;
+    }
+
+    button.btn-red {
+      background: #ef4444;
+    }
+    button.btn-red:hover {
+      background: #dc2626;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    /* Inputs */
+    input[type="text"], select {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--vue-green);
+      box-shadow: 0 0 0 2px rgba(66, 184, 131, 0.25);
+    }
+
+    /* Task list */
+    .task-list {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .task-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .done-task span {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0 6px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--vue-green);
+      transition: width 0.3s;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    .alert {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+    .alert-success { background: #dcfce7; color: #166534; }
+    .alert-warning { background: #fef9c3; color: #854d0e; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Vue 3 Composition API Basics</h1>
+    <p>Live, client-side Vue 3 application running natively in the browser without any build setup.</p>
+  </header>
+
+  <!-- Vue Mount Target -->
+  <div id="app" class="container">
+
+    <!-- 1. REACTIVITY & REF -->
+    <section class="card">
+      <h2>
+        1. Reactivity with ref() &amp; Watchers
+        <span class="badge">ref, watch</span>
+      </h2>
+      <p class="desc">The <code>ref()</code> function creates a reactive reference wrapper around a primitive value.</p>
+
+      <div class="demo-box">
+        <p><strong>Title:</strong> {{ title }}</p>
+        <p style="font-size: 1.2rem; margin: 8px 0;">
+          Count: <strong style="color: var(--vue-green); font-size: 1.5rem;">{{ count }}</strong>
+        </p>
+
+        <div class="btn-group">
+          <button @click="count++">+ Increment</button>
+          <button @click="if (count > 0) count--" class="btn-gray">- Decrement</button>
+          <button @click="count = 0" class="btn-red">Reset</button>
+        </div>
+
+        <p style="font-size: 0.85rem; color: #0d9488; font-family: monospace; margin-top: 8px;">
+          Watcher: {{ watcherMessage }}
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. CONDITIONAL RENDERING -->
+    <section class="card">
+      <h2>
+        2. Conditional Rendering (v-if &amp; v-show)
+        <span class="badge">v-if, v-else, v-show</span>
+      </h2>
+      <p class="desc">Toggle visibility with DOM insertion/removal (<code>v-if</code>) or CSS display (<code>v-show</code>).</p>
+
+      <div class="demo-box">
+        <button @click="showDetails = !showDetails">
+          Toggle Details (Currently: {{ showDetails ? 'Shown' : 'Hidden' }})
+        </button>
+
+        <div v-if="showDetails" class="alert alert-success">
+          <strong>v-if block:</strong> Actively mounted in DOM because <code>showDetails === true</code>.
+        </div>
+        <div v-else class="alert alert-warning">
+          <strong>v-else block:</strong> Rendered because <code>showDetails === false</code>.
+        </div>
+
+        <div v-show="showDetails" style="margin-top: 10px; padding: 10px; background: #f1f5f9; border-radius: 4px;">
+          <strong>v-show block:</strong> Toggles <code>display: none</code> style, remains in DOM.
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. LIST RENDERING & COMPUTED -->
+    <section class="card">
+      <h2>
+        3. List Rendering &amp; Computed Properties
+        <span class="badge">v-for, computed</span>
+      </h2>
+      <p class="desc">Iterate arrays with <code>v-for</code> and derive cached reactive stats with <code>computed()</code>.</p>
+
+      <div class="demo-box">
+        <form @submit.prevent="addTask" style="display: flex; gap: 8px;">
+          <input v-model="newTaskText" type="text" placeholder="Add task and press Enter..." required>
+          <button type="submit">+ Add</button>
+        </form>
+
+        <div class="progress-bar">
+          <div class="progress-fill" :style="{ width: progress + '%' }"></div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+          Progress: {{ completedTasks }} of {{ tasks.length }} completed ({{ progress }}%)
+        </p>
+
+        <ul class="task-list">
+          <li v-for="t in tasks" :key="t.id" :class="{ 'done-task': t.done }">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" v-model="t.done">
+              <span>{{ t.text }}</span>
+            </label>
+            <button @click="removeTask(t.id)" class="btn-red" style="padding: 2px 8px; font-size: 0.8rem;">✕</button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. TWO-WAY BINDING WITH V-MODEL -->
+    <section class="card">
+      <h2>
+        4. Two-Way Form Binding
+        <span class="badge">v-model</span>
+      </h2>
+      <p class="desc">Instant two-way data synchronization between input fields and Vue state.</p>
+
+      <div class="demo-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <label style="font-size: 0.88rem; font-weight: bold;">Student Name:</label>
+          <input v-model="student.name" type="text" style="margin-bottom: 10px;">
+
+          <label style="font-size: 0.88rem; font-weight: bold;">Select Major:</label>
+          <select v-model="student.major">
+            <option value="Computer Science">Computer Science</option>
+            <option value="Information Tech">Information Tech</option>
+            <option value="AI & Data Science">AI &amp; Data Science</option>
+          </select>
+
+          <label style="display: flex; align-items: center; gap: 6px; margin-top: 10px; cursor: pointer;">
+            <input type="checkbox" v-model="student.enrolled"> Active Enrollment
+          </label>
+        </div>
+
+        <div>
+          <strong>Live JSON State Preview:</strong>
+          <pre><code>{{ JSON.stringify(student, null, 2) }}</code></pre>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Vue Initialization Script -->
+  <script>
+    const { createApp, ref, reactive, computed, watch, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        const title = ref("Hello Vue 3!");
+        const count = ref(0);
+        const watcherMessage = ref("Waiting for count update...");
+        const showDetails = ref(true);
+
+        // Watcher demo
+        watch(count, (newVal, oldVal) => {
+          watcherMessage.value = `Count changed from ${oldVal} to ${newVal}!`;
+        });
+
+        // Tasks list demo
+        const tasks = ref([
+          { id: 1, text: "Learn HTML & CSS Basics", done: true },
+          { id: 2, text: "Master JavaScript ES6", done: true },
+          { id: 3, text: "Build Vue 3 Application", done: false }
+        ]);
+        const newTaskText = ref("");
+
+        const completedTasks = computed(() => tasks.value.filter(t => t.done).length);
+        const progress = computed(() => {
+          if (tasks.value.length === 0) return 0;
+          return Math.round((completedTasks.value / tasks.value.length) * 100);
+        });
+
+        function addTask() {
+          if (!newTaskText.value.trim()) return;
+          tasks.value.push({ id: Date.now(), text: newTaskText.value.trim(), done: false });
+          newTaskText.value = "";
+        }
+
+        function removeTask(id) {
+          tasks.value = tasks.value.filter(t => t.id !== id);
+        }
+
+        // Two-way binding demo
+        const student = reactive({
+          name: "Priya",
+          major: "Computer Science",
+          enrolled: true
+        });
+
+        onMounted(() => {
+          console.log("Vue 3 App initialized successfully!");
+        });
+
+        return {
+          title,
+          count,
+          watcherMessage,
+          showDetails,
+          tasks,
+          newTaskText,
+          completedTasks,
+          progress,
+          addTask,
+          removeTask,
+          student
+        };
+      }
+    }).mount('#app');
+  </script>
+
+</body>
+</html>

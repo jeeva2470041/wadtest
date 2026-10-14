@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Document Metadata & Head Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comprehensive demonstration of Basic to Intermediate HTML tags for Web Application Development">
+  <meta name="author" content="WAD Lab">
+  <title>HTML Tags Showcase - Basic to Intermediate</title>
+
+  <style>
+    /* Clean, modern, responsive styling */
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --surface: #ffffff;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --code-bg: #f1f5f9;
+      --tag-badge: #dbeafe;
+      --tag-badge-text: #1e40af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px #0000001a;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background: #0f172a;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      background: #1e293b;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Section Cards */
+    section {
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 26px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px #00000005;
+    }
+
+    section h2 {
+      color: #0f172a;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tag-badge {
+      font-size: 0.75rem;
+      background: var(--tag-badge);
+      color: var(--tag-badge-text);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-family: monospace;
+      font-weight: normal;
+    }
+
+    .intro-text {
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+    }
+
+    .demo-box {
+      background: #fdfdfd;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 18px;
+      margin: 12px 0 20px 0;
+    }
+
+    /* Code styling */
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      background: var(--code-bg);
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.88rem;
+      margin: 12px 0;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    tfoot {
+      background: #f1f5f9;
+      font-weight: 600;
+    }
+
+    /* Form styling */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    legend {
+      font-weight: 600;
+      padding: 0 8px;
+      color: var(--primary);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px #2563eb25;
+    }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .radio-group label, .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    button, input[type="submit"], input[type="reset"] {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    button:hover, input[type="submit"]:hover {
+      background: var(--primary-dark);
+    }
+
+    input[type="reset"] {
+      background: #64748b;
+    }
+
+    input[type="reset"]:hover {
+      background: #475569;
+    }
+
+    /* Details / Summary */
+    details {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      margin: 8px 0;
+    }
+
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--primary);
+      user-select: none;
+    }
+
+    details[open] summary {
+      margin-bottom: 10px;
+    }
+
+    /* Dialog */
+    dialog {
+      margin: auto;
+      border: none;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 10px 25px #00000030;
+      max-width: 450px;
+    }
+
+    dialog::backdrop {
+      background: #00000060;
+    }
+
+    /* Aside */
+    aside {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 14px;
+      border-radius: 0 8px 8px 0;
+      margin: 15px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Semantic Header -->
+  <header>
+    <h1>HTML Tags Showcase</h1>
+    <p>A structured, live guide to basic, intermediate, and semantic HTML5 tags.</p>
+  </header>
+
+  <!-- 2. Semantic Navigation -->
+  <nav aria-label="Main Navigation">
+    <a href="#headings">Headings</a>
+    <a href="#formatting">Formatting</a>
+    <a href="#lists">Lists</a>
+    <a href="#tables">Tables</a>
+    <a href="#forms">Forms</a>
+    <a href="#multimedia">Media</a>
+    <a href="#semantics">Semantics</a>
+    <a href="#interactive">Interactive</a>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- SECTION 1: Headings & Paragraphs -->
+    <section id="headings">
+      <h2>
+        1. Headings &amp; Text Elements
+        <span class="tag-badge">&lt;h1&gt; to &lt;h6&gt;, &lt;p&gt;, &lt;hr&gt;, &lt;br&gt;</span>
+      </h2>
+      <p class="intro-text">Headings establish visual and document hierarchy from level 1 down to level 6.</p>
+
+      <div class="demo-box">
+        <h1>Heading Level 1 (&lt;h1&gt;)</h1>
+        <h2>Heading Level 2 (&lt;h2&gt;)</h2>
+        <h3>Heading Level 3 (&lt;h3&gt;)</h3>
+        <h4>Heading Level 4 (&lt;h4&gt;)</h4>
+        <h5>Heading Level 5 (&lt;h5&gt;)</h5>
+        <h6>Heading Level 6 (&lt;h6&gt;)</h6>
+        <hr>
+        <p>
+          This is a paragraph (<code>&lt;p&gt;</code>). It is used for body copy.<br>
+          This line was created using a line break tag (<code>&lt;br&gt;</code>).
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Text Formatting & Inline Tags -->
+    <section id="formatting">
+      <h2>
+        2. Text Formatting &amp; Inline Semantics
+        <span class="tag-badge">&lt;strong&gt;, &lt;em&gt;, &lt;mark&gt;, &lt;code&gt;...</span>
+      </h2>
+      <p class="intro-text">Inline tags format text with visual style and semantic meaning.</p>
+
+      <div class="demo-box">
+        <p><strong>Strong text:</strong> <code>&lt;strong&gt;</code> indicates important text (bold).</p>
+        <p><b>Bold text:</b> <code>&lt;b&gt;</code> simply bolds text without extra importance.</p>
+        <p><em>Emphasized text:</em> <code>&lt;em&gt;</code> adds verbal emphasis (italic).</p>
+        <p><i>Italic text:</i> <code>&lt;i&gt;</code> displays text in italics.</p>
+        <p><mark>Marked text:</mark> <code>&lt;mark&gt;</code> highlights reference points.</p>
+        <p><small>Small text:</small> <code>&lt;small&gt;</code> represents fine print or side-comments.</p>
+        <p><del>Deleted text:</del> <code>&lt;del&gt;</code> shows removed text (strikethrough).</p>
+        <p><ins>Inserted text:</ins> <code>&lt;ins&gt;</code> shows added text (underlined).</p>
+        <p>Subscript &amp; Superscript: H<sub>2</sub>O (<code>&lt;sub&gt;</code>) and E = mc<sup>2</sup> (<code>&lt;sup&gt;</code>).</p>
+        <p>Short inline quote: <q>Practice makes progress</q> (<code>&lt;q&gt;</code>).</p>
+        <p>Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr> (<code>&lt;abbr&gt;</code> with tooltip).</p>
+      </div>
+
+      <!-- Blockquote & Preformatted Code -->
+      <blockquote cite="https://www.w3.org" style="border-left: 4px solid var(--primary); padding-left: 15px; margin: 15px 0; color: #475569; font-style: italic;">
+        "The power of the Web is in its universality. Access by everyone regardless of disability is an essential aspect."
+        <footer>— Tim Berners-Lee (<code>&lt;blockquote&gt;</code>)</footer>
+      </blockquote>
+
+      <p>Preformatted code block (<code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code>):</p>
+      <pre><code>// JavaScript Function Example
+function greet(user) {
+  return `Hello, ${user}!`;
+}
+console.log(greet("Student"));</code></pre>
+    </section>
+
+    <!-- SECTION 3: Lists -->
+    <section id="lists">
+      <h2>
+        3. Lists (Ordered, Unordered, &amp; Description)
+        <span class="tag-badge">&lt;ul&gt;, &lt;ol&gt;, &lt;dl&gt;, &lt;li&gt;, &lt;dt&gt;, &lt;dd&gt;</span>
+      </h2>
+      <p class="intro-text">HTML provides three primary list types for grouped content.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        <!-- Unordered List -->
+        <div class="demo-box">
+          <h3>Unordered List (<code>&lt;ul&gt;</code>)</h3>
+          <ul>
+            <li>HTML (Markup)</li>
+            <li>CSS (Styling)</li>
+            <li>JavaScript (Interactivity)</li>
+            <li>Vue.js / React (Frameworks)</li>
+          </ul>
+        </div>
+
+        <!-- Ordered List -->
+        <div class="demo-box">
+          <h3>Ordered List (<code>&lt;ol&gt;</code>)</h3>
+          <ol type="1">
+            <li>Plan the application</li>
+            <li>Write backend APIs (Spring Boot)</li>
+            <li>Design frontend components (Vue)</li>
+            <li>Test and deploy</li>
+          </ol>
+        </div>
+
+        <!-- Description List -->
+        <div class="demo-box">
+          <h3>Description List (<code>&lt;dl&gt;</code>)</h3>
+          <dl>
+            <dt><strong>Vue Router:</strong></dt>
+            <dd>Official routing library for Vue.js.</dd>
+            <dt><strong>Pinia:</strong></dt>
+            <dd>Intuitive state management store for Vue 3.</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Hyperlinks & Navigation -->
+    <section id="links">
+      <h2>
+        4. Hyperlinks &amp; Anchors
+        <span class="tag-badge">&lt;a&gt; href, target, mailto, tel</span>
+      </h2>
+      <p class="intro-text">Anchor tags connect web pages, files, email addresses, and intra-page targets.</p>
+
+      <div class="demo-box">
+        <p>• External Link: <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs (opens new tab)</a></p>
+        <p>• Internal Anchor: <a href="#forms">Jump down to Forms Section (#forms)</a></p>
+        <p>• Email Link: <a href="mailto:student@example.com">Send an Email (mailto:)</a></p>
+        <p>• Phone Link: <a href="tel:+1234567890">Call Phone (+1234567890)</a></p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Tables -->
+    <section id="tables">
+      <h2>
+        5. Complex Tables with Spanning
+        <span class="tag-badge">&lt;table&gt;, &lt;caption&gt;, &lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt;, rowspan, colspan</span>
+      </h2>
+      <p class="intro-text">Tables organize tabular data with accessible headers, column spans, and row spans.</p>
+
+      <div class="demo-box">
+        <table>
+          <caption><strong>Student Course Enrollment &amp; Scores</strong></caption>
+          <thead>
+            <tr>
+              <th rowspan="2">Student ID</th>
+              <th rowspan="2">Student Name</th>
+              <th colspan="2">Exam Scores</th>
+              <th rowspan="2">Status</th>
+            </tr>
+            <tr>
+              <th>Midterm</th>
+              <th>Final</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>101</td>
+              <td>Alex Johnson</td>
+              <td>88</td>
+              <td>92</td>
+              <td>Passed</td>
+            </tr>
+            <tr>
+              <td>102</td>
+              <td>Sara Connor</td>
+              <td>75</td>
+              <td>84</td>
+              <td>Passed</td>
+            </tr>
+            <tr>
+              <td>103</td>
+              <td>Michael Chen</td>
+              <td>94</td>
+              <td>96</td>
+              <td>Passed</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2">Average Score</td>
+              <td>85.6</td>
+              <td>90.6</td>
+              <td>Passing</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Forms & Controls (Intermediate) -->
+    <section id="forms">
+      <h2>
+        6. Comprehensive Form &amp; Input Types
+        <span class="tag-badge">&lt;form&gt;, &lt;fieldset&gt;, &lt;datalist&gt;, &lt;select&gt;, &lt;output&gt;</span>
+      </h2>
+      <p class="intro-text">Interactive user inputs covering both basic and modern HTML5 form elements.</p>
+
+      <form action="#" method="post" onsubmit="event.preventDefault(); alert('Form submitted successfully!');">
+        <!-- Text & Basic Inputs -->
+        <fieldset>
+          <legend>Personal Information</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name (Text):</label>
+              <input type="text" id="fullName" name="fullName" placeholder="e.g. Priya Sharma" required>
+            </div>
+            <div class="form-group">
+              <label for="userEmail">Email Address (Email):</label>
+              <input type="email" id="userEmail" name="userEmail" placeholder="priya@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="userPassword">Password:</label>
+              <input type="password" id="userPassword" name="userPassword" minlength="6" placeholder="Min 6 characters" required>
+            </div>
+            <div class="form-group">
+              <label for="userAge">Age (Number):</label>
+              <input type="number" id="userAge" name="userAge" min="16" max="99" value="20">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Date, Time, Color, File -->
+        <fieldset>
+          <legend>Date, Color &amp; Media Inputs</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="birthDate">Birth Date (Date):</label>
+              <input type="date" id="birthDate" name="birthDate">
+            </div>
+            <div class="form-group">
+              <label for="meetingTime">Preferred Time (Time):</label>
+              <input type="time" id="meetingTime" name="meetingTime">
+            </div>
+            <div class="form-group">
+              <label for="themeColor">Favorite Color (Color Picker):</label>
+              <input type="color" id="themeColor" name="themeColor" value="#2563eb">
+            </div>
+            <div class="form-group">
+              <label for="resume">Upload File (File):</label>
+              <input type="file" id="resume" name="resume">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Select, Datalist, Textarea -->
+        <fieldset>
+          <legend>Selections &amp; Lists</legend>
+          <div class="form-row">
+            <!-- Dropdown Select with Optgroup -->
+            <div class="form-group">
+              <label for="department">Department (<code>&lt;select&gt;</code> with <code>&lt;optgroup&gt;</code>):</label>
+              <select id="department" name="department">
+                <optgroup label="Engineering">
+                  <option value="cs">Computer Science</option>
+                  <option value="it" selected>Information Technology</option>
+                  <option value="ee">Electrical Engineering</option>
+                </optgroup>
+                <optgroup label="Management">
+                  <option value="mba">MBA</option>
+                  <option value="bba">BBA</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- Datalist Autocomplete -->
+            <div class="form-group">
+              <label for="course">Course (<code>&lt;datalist&gt;</code> Autocomplete):</label>
+              <input list="courseList" id="course" name="course" placeholder="Type to search...">
+              <datalist id="courseList">
+                <option value="Web Application Development">
+                <option value="Cloud Computing">
+                <option value="Database Management Systems">
+                <option value="Data Structures & Algorithms">
+                <option value="Artificial Intelligence">
+              </datalist>
+            </div>
+          </div>
+
+          <!-- Range with Output calculation -->
+          <div class="form-group" style="margin-top: 14px;">
+            <label for="satisfaction">
+              Skill Rating (<code>&lt;input type="range"&gt;</code> with <code>&lt;output&gt;</code>): 
+              <output id="rangeVal" for="satisfaction">80</output>%
+            </label>
+            <input type="range" id="satisfaction" name="satisfaction" min="0" max="100" value="80" 
+                   oninput="document.getElementById('rangeVal').value = this.value">
+          </div>
+
+          <!-- Textarea -->
+          <div class="form-group" style="margin-top: 10px;">
+            <label for="comments">Comments / Bio (<code>&lt;textarea&gt;</code>):</label>
+            <textarea id="comments" name="comments" rows="3" placeholder="Write something about yourself..."></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Radio & Checkbox -->
+        <fieldset>
+          <legend>Options (Radio &amp; Checkbox)</legend>
+          <div class="form-group">
+            <span style="font-weight: 500; font-size: 0.9rem;">Education Level (Radio buttons):</span>
+            <div class="radio-group" style="margin-top: 6px;">
+              <label><input type="radio" name="education" value="undergraduate" checked> Undergraduate</label>
+              <label><input type="radio" name="education" value="graduate"> Graduate</label>
+              <label><input type="radio" name="education" value="doctorate"> Doctorate</label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <span style="font-weight: 500; font-size: 0.9rem;">Frameworks Learned (Checkboxes):</span>
+            <div class="checkbox-group" style="margin-top: 6px;">
+              <label><input type="checkbox" name="skills" value="vue" checked> Vue 3</label>
+              <label><input type="checkbox" name="skills" value="pinia" checked> Pinia</label>
+              <label><input type="checkbox" name="skills" value="spring" checked> Spring Boot</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Progress and Meter (Intermediate) -->
+        <fieldset>
+          <legend>Progress &amp; Meter Tags</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fileProgress">Download Progress (<code>&lt;progress&gt;</code>):</label>
+              <progress id="fileProgress" value="75" max="100" style="width: 100%; height: 22px;">75%</progress>
+            </div>
+            <div class="form-group">
+              <label for="diskUsage">Disk Storage Gauge (<code>&lt;meter&gt;</code>):</label>
+              <meter id="diskUsage" value="65" min="0" max="100" low="30" high="80" optimum="50" style="width: 100%; height: 22px;">65%</meter>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Form Buttons -->
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+          <button type="submit">Submit Form (&lt;button&gt;)</button>
+          <input type="reset" value="Reset Fields (&lt;input type='reset'&gt;)">
+        </div>
+      </form>
+    </section>
+
+    <!-- SECTION 7: Images & Multimedia -->
+    <section id="multimedia">
+      <h2>
+        7. Images, Figures, Audio &amp; Video
+        <span class="tag-badge">&lt;figure&gt;, &lt;figcaption&gt;, &lt;audio&gt;, &lt;video&gt;, &lt;canvas&gt;</span>
+      </h2>
+      <p class="intro-text">Embedding rich visual and audio media elements.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <!-- Figure and Image with SVG -->
+        <div class="demo-box">
+          <h3>Image &amp; Caption (<code>&lt;figure&gt;</code>)</h3>
+          <figure style="text-align: center;">
+            <!-- Self-contained SVG image for 100% reliable rendering -->
+            <svg width="220" height="120" style="background:#e0e7ff; border-radius:8px; border:1px solid #c7d2fe;">
+              <rect x="20" y="20" width="180" height="80" rx="6" fill="#3b82f6" />
+              <text x="110" y="65" fill="#ffffff" font-size="16" font-family="sans-serif" text-anchor="middle" font-weight="bold">Vue + Spring Boot</text>
+            </svg>
+            <figcaption style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+              Figure 1: Full-stack Web Architecture Diagram
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="demo-box">
+          <h3>Audio Player (<code>&lt;audio&gt;</code>)</h3>
+          <p style="font-size: 0.85rem; margin-bottom: 8px;">Supports play, pause, seek, and volume:</p>
+          <audio controls style="width: 100%;">
+            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+          </audio>
+        </div>
+
+        <!-- Video Player -->
+        <div class="demo-box">
+          <h3>Video Player (<code>&lt;video&gt;</code>)</h3>
+          <video controls width="100%" style="border-radius: 6px; max-height: 140px; background: #000;">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Canvas -->
+        <div class="demo-box">
+          <h3>Canvas Graphic (<code>&lt;canvas&gt;</code>)</h3>
+          <canvas id="myCanvas" width="260" height="100" style="background:#0f172a; border-radius:6px; display:block; margin:0 auto;"></canvas>
+          <script>
+            // Draw on canvas with JS
+            const canvas = document.getElementById('myCanvas');
+            if (canvas && canvas.getContext) {
+              const ctx = canvas.getContext('2d');
+              ctx.fillStyle = '#38bdf8';
+              ctx.font = 'bold 15px sans-serif';
+              ctx.fillText('HTML5 Canvas 2D API', 40, 45);
+              ctx.fillStyle = '#f43f5e';
+              ctx.fillRect(40, 60, 180, 12);
+            }
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: HTML5 Semantic Structural Tags -->
+    <section id="semantics">
+      <h2>
+        8. HTML5 Semantic Layout Elements
+        <span class="tag-badge">&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;article&gt;, &lt;section&gt;, &lt;aside&gt;, &lt;footer&gt;</span>
+      </h2>
+      <p class="intro-text">Semantic tags give meaning to webpage structure for search engines (SEO) and screen readers.</p>
+
+      <div class="demo-box">
+        <!-- Article -->
+        <article style="border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: white;">
+          <header>
+            <h3 style="color: #0f172a; margin-bottom: 4px;">Article Component (<code>&lt;article&gt;</code>)</h3>
+            <time datetime="2026-10-14" style="font-size: 0.85rem; color: var(--text-muted);">Published on October 14, 2026 (<code>&lt;time&gt;</code>)</time>
+          </header>
+          <p style="margin-top: 10px;">
+            An article represents a self-contained composition in a document, page, or site, intended to be independently distributable or reusable.
+          </p>
+        </article>
+
+        <!-- Aside -->
+        <aside>
+          <h4>Aside Note (<code>&lt;aside&gt;</code>)</h4>
+          <p>
+            The aside element represents a portion of a document whose content is only indirectly related to the document's main content (like sidebars, tips, or callout boxes).
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 9: Intermediate & Interactive Elements -->
+    <section id="interactive">
+      <h2>
+        9. Interactive &amp; Modern Intermediate Tags
+        <span class="tag-badge">&lt;details&gt;, &lt;summary&gt;, &lt;dialog&gt;, &lt;iframe&gt;</span>
+      </h2>
+      <p class="intro-text">Modern HTML elements providing native interactive capabilities without external plugins.</p>
+
+      <!-- Details / Summary Accordion -->
+      <div class="demo-box">
+        <h3>Collapsible Disclosure (<code>&lt;details&gt;</code> &amp; <code>&lt;summary&gt;</code>)</h3>
+        
+        <details open>
+          <summary>What is HTML5?</summary>
+          <p>HTML5 is the latest major revision of the HTML standard, introducing semantic elements, canvas drawing, video, audio, and client-side storage APIs.</p>
+        </details>
+
+        <details>
+          <summary>Why use semantic tags?</summary>
+          <p>Semantic tags improve accessibility (a11y) for screen readers, boost Search Engine Optimization (SEO), and make the source code much easier to maintain.</p>
+        </details>
+      </div>
+
+      <!-- Native Dialog Modal -->
+      <div class="demo-box">
+        <h3>Native Modal Dialog (<code>&lt;dialog&gt;</code>)</h3>
+        <p>HTML5 supports native modal dialog boxes directly with built-in backdrop support:</p>
+        <button type="button" onclick="document.getElementById('demoDialog').showModal();" style="margin-top: 10px;">
+          Open Native Dialog (&lt;dialog&gt;)
+        </button>
+
+        <dialog id="demoDialog">
+          <h3 style="margin-bottom: 8px;">Native HTML Dialog</h3>
+          <p style="margin-bottom: 15px; color: var(--text-muted);">This popup dialog was rendered natively by the browser using the HTML5 <code>&lt;dialog&gt;</code> tag!</p>
+          <button type="button" onclick="document.getElementById('demoDialog').close();">Close Dialog</button>
+        </dialog>
+      </div>
+
+      <!-- Embedded Iframe -->
+      <div class="demo-box">
+        <h3>Embedded Frame (<code>&lt;iframe&gt;</code>)</h3>
+        <iframe 
+          srcdoc="<html style='font-family:sans-serif; padding:15px; background:#f0fdf4;'><body style='margin:0;'><h4 style='color:#166534;'>Inside Iframe</h4><p style='color:#15803d; font-size:13px;'>This content is rendered inside an isolated &lt;iframe&gt; container!</p></body></html>"
+          title="Demo Iframe" 
+          width="100%" 
+          height="90" 
+          style="border: 1px solid #bbf7d0; border-radius: 6px;">
+        </iframe>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 10. Semantic Footer -->
+  <footer>
+    <p>Web Application Development (WAD) Reference &bull; Basic to Intermediate HTML Tags</p>
+    <p><small>&copy; 2026 HTML Showcase Document. Created for testing and demonstration.</small></p>
+  </footer>
+
+</body>
+</html>
