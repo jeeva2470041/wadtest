@@ -34,7 +34,7 @@ nano gemini_chat.py
 
 from google import genai
 client = genai.Client()
-chat = client.chats.create(model="gemini-2.5-flash")
+chat = client.chats.create(model="gemini-3.5-flash")
 
 print("\n🤖 Gemini Terminal Chat")
 print("Type 'exit' to quit or 'reset' to restart.\n")
@@ -51,7 +51,7 @@ while True:
             break
 
         if prompt.lower() == "reset":
-            chat = client.chats.create(model="gemini-.5-flash")
+            chat = client.chats.create(model="gemini-3.5-flash")
             print("Gemini: Conversation reset!\n")
             continue
 
