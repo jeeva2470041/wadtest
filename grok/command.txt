@@ -2,7 +2,7 @@ sudo apt update
 sudo apt install -y jq
 
 
-export GROQ_API_KEY="YOUR_NEW_GROQ_API_KEY"
+export GROQ_API_KEY="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"
 
 curl -s https://api.groq.com/openai/v1/chat/completions \
   -H "Authorization: Bearer $GROQ_API_KEY" \
@@ -12,7 +12,7 @@ curl -s https://api.groq.com/openai/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Explain binary search in simple words"
+        "content": "i need the springboot code for controller ,services,repository then model for student management system along with app.vue frontend code"
       }
     ]
   }' | jq -r '.choices[0].message.content // .error.message'

@@ -25,7 +25,7 @@ export GEMINI_API_KEY
 
 #STEP 2(TO VERIFY)
 
-python3 -c 'from google import genai; c=genai.Client(); r=c.models.generate_content(model="gemini-5.5-flash-lite", contents="Say hello bro"); print(r.text)'
+python3 -c 'from google import genai; c=genai.Client(); r=c.models.generate_content(model="gemini-3.5-flash-lite", contents="Say hello bro"); print(r.text)'
 
 #STEP 3
 nano gemini_chat.py
@@ -51,7 +51,7 @@ while True:
             break
 
         if prompt.lower() == "reset":
-            chat = client.chats.create(model="gemini-2.5-flash")
+            chat = client.chats.create(model="gemini-.5-flash")
             print("Gemini: Conversation reset!\n")
             continue
 
