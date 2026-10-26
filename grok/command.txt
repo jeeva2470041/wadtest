@@ -2,7 +2,7 @@ sudo apt update
 sudo apt install -y jq
 
 
-export GROQ_API_KEY="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"
+export GROQ_API_KEY="jeevagsk_5Z5fyC4HuWXUQJHUYu6CWGdyb3FYvPZV0KLaSQWUjDkS9cUNCQVg"
 
 curl -s https://api.groq.com/openai/v1/chat/completions \
   -H "Authorization: Bearer $GROQ_API_KEY" \
